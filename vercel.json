@@ -1,5 +1,4 @@
 {
-  "//": "React Router 새로고침 시 404 방지를 위한 SPA rewrite",
   "rewrites": [
     {
       "source": "/(.*)",

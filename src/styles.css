@@ -115,3 +115,42 @@ button {
   color: #b91c1c;
   margin: 0;
 }
+
+.learning-layout {
+  display: grid;
+  gap: 12px;
+}
+
+.compact-list {
+  max-height: 260px;
+  overflow: auto;
+}
+
+.flow-card {
+  min-height: 320px;
+}
+
+.lang-card {
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.kor-card {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.arb-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.crud-layout {
+  display: grid;
+  gap: 12px;
+}
+
+.crud-form {
+  display: grid;
+  gap: 8px;
+}

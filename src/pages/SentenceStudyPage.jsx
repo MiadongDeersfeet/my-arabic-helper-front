@@ -57,8 +57,8 @@ function SentenceStudyPage() {
       <div className="list">
         {quizItems.map((item) => (
           <article className="card" key={item.id}>
-            <h3>{item.arabic}</h3>
-            <p>발음: {item.pronunciation || "-"}</p>
+            <h3>{item.arabicText}</h3>
+            <p>카테고리: {item.category || "-"}</p>
             <div className="row">
               <button
                 type="button"
@@ -73,7 +73,7 @@ function SentenceStudyPage() {
                 틀림
               </button>
             </div>
-            {showAnswerMap[item.id] && <p>해석: {item.translation}</p>}
+            {showAnswerMap[item.id] && <p>해석: {item.koreanText}</p>}
           </article>
         ))}
       </div>

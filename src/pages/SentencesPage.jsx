@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { sentenceApi } from "../api/client";
 
 const initialForm = {
-  arabic: "",
-  translation: "",
-  pronunciation: "",
-  topic: ""
+  category: "",
+  arabicText: "",
+  koreanText: "",
+  isActive: true
 };
 
 // 문장 CRUD 화면
@@ -24,7 +24,8 @@ function SentencesPage() {
   }, []);
 
   const onChange = (event) => {
-    setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    const { name, type, value, checked } = event.target;
+    setForm((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
   };
 
   const onSubmit = async (event) => {
@@ -44,10 +45,10 @@ function SentencesPage() {
   const onEdit = (item) => {
     setEditingId(item.id);
     setForm({
-      arabic: item.arabic || "",
-      translation: item.translation || "",
-      pronunciation: item.pronunciation || "",
-      topic: item.topic || ""
+      category: item.category || "",
+      arabicText: item.arabicText || "",
+      koreanText: item.koreanText || "",
+      isActive: typeof item.isActive === "boolean" ? item.isActive : true
     });
   };
 
@@ -60,20 +61,23 @@ function SentencesPage() {
     <section>
       <h2>문장 CRUD</h2>
       <form className="card" onSubmit={onSubmit}>
-        <input name="arabic" placeholder="아랍어 문장" value={form.arabic} onChange={onChange} required />
-        <input name="translation" placeholder="해석(한국어)" value={form.translation} onChange={onChange} required />
-        <input name="pronunciation" placeholder="발음" value={form.pronunciation} onChange={onChange} />
-        <input name="topic" placeholder="주제/태그" value={form.topic} onChange={onChange} />
+        <input name="category" placeholder="카테고리 (예: 10과)" value={form.category} onChange={onChange} required />
+        <input name="arabicText" placeholder="아랍어 문장" value={form.arabicText} onChange={onChange} required />
+        <input name="koreanText" placeholder="해석(한국어)" value={form.koreanText} onChange={onChange} required />
+        <label className="row">
+          <input name="isActive" type="checkbox" checked={form.isActive} onChange={onChange} />
+          학습에 포함
+        </label>
         <button type="submit">{editingId ? "수정 저장" : "문장 추가"}</button>
       </form>
 
       <div className="list">
         {items.map((item) => (
           <article className="card" key={item.id}>
-            <h3>{item.arabic}</h3>
-            <p>해석: {item.translation}</p>
-            <p>발음: {item.pronunciation || "-"}</p>
-            <p>주제: {item.topic || "-"}</p>
+            <h3>{item.arabicText}</h3>
+            <p>해석: {item.koreanText}</p>
+            <p>카테고리: {item.category || "-"}</p>
+            <p>활성화: {item.isActive ? "Y" : "N"}</p>
             <div className="row">
               <button type="button" onClick={() => onEdit(item)}>
                 수정
